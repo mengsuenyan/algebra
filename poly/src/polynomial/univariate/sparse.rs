@@ -78,8 +78,10 @@ impl<F: Field> Polynomial<F> for SparsePolynomial<F> {
         let total = self
             .coeffs
             .iter()
-            .map(|(i, c)| (*c * point.pow_with_table(&[*i as u64], &pows_2[..])))
-            .sum();
+            .map(|(i, c)| {
+                debug_assert_eq!(point.pow_with_table(&[*i as u64], &pows_2[..]), point.pow(&[*i as u64]));
+                *c * point.pow_with_table(&[*i as u64], &pows_2[..])
+            }).sum();
         total
     }
 }

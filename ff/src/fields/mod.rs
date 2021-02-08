@@ -204,7 +204,7 @@ pub trait Field:
             }
         }
 
-        let mut res = Self::zero();
+        let mut res = Self::one();
         for i in 0..max {
             let part = i / 64;
             let bit = i - (64 * part);
